@@ -21,7 +21,7 @@ Essa integração não será requisito para a primeira versão funcional.
 
 ## 6. Controle de custos
 O agente deverá:
-- Receber apenas o contexto necessário para cada tarefa.
+- Enviar apenas o contexto necessário para cada tarefa.
 - Preferir alterações pequenas e verificáveis.
 - Evitar chamadas desnecessárias à IA.
 - Ter limites de iterações e critérios de parada.
@@ -33,6 +33,11 @@ Nenhuma chave de API deverá ser publicada no repositório.
 ## 8. Desenvolvimento incremental
 A infraestrutura será construída e testada em etapas.
 Nenhuma funcionalidade será considerada pronta apenas porque o código foi gerado.
+
+## 9. Dependências e integração contínua
+As dependências Python do gerador serão declaradas em `requirements.txt`.
+O FFmpeg permanece uma dependência de sistema e será instalado separadamente.
+O GitHub Actions executará compilação e testes com Python 3.13.
 
 ## Decisões ainda pendentes
 - Qual agente executor será utilizado.

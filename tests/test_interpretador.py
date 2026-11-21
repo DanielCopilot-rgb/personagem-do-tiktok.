@@ -26,6 +26,10 @@ class TestInterpretador(unittest.TestCase):
         resultado = escolher_expressao("Estou cansado hoje.", [])
         self.assertEqual(resultado, "cansado_olhos_fechados")
 
+    def test_negacao_dentro_de_expressao_de_cansaco_continua_valida(self):
+        resultado = escolher_expressao("Não aguento mais esperar.", [])
+        self.assertEqual(resultado, "cansado_olhos_fechados")
+
     def test_escolher_expressao_detecta_alegria(self):
         resultado = escolher_expressao("Estou feliz!", [])
         self.assertEqual(resultado, "feliz_olhos_fechados")
@@ -38,6 +42,22 @@ class TestInterpretador(unittest.TestCase):
         resultado = escolher_expressao(
             "O que será que aconteceu?",
             ["Havia um mistério no corredor."]
+        )
+        self.assertEqual(resultado, "serio_boca_reta")
+
+    def test_nao_detecta_palavra_dentro_de_outra(self):
+        resultado = escolher_expressao(
+            "A situação é incrivelmente complicada.", []
+        )
+        self.assertEqual(resultado, "sorriso_fechado")
+
+    def test_respeita_negacao_de_alegria(self):
+        resultado = escolher_expressao("Não estou feliz com o resultado.", [])
+        self.assertEqual(resultado, "sorriso_fechado")
+
+    def test_respeita_negacao_de_humor(self):
+        resultado = escolher_expressao(
+            "O problema não é tão engraçado assim.", []
         )
         self.assertEqual(resultado, "serio_boca_reta")
 

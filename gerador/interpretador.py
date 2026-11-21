@@ -1,10 +1,12 @@
 import re
 import unicodedata
 
+
 def normalizar(texto):
     texto = texto.lower()
     texto = unicodedata.normalize("NFD", texto)
     return "".join(c for c in texto if unicodedata.category(c) != "Mn")
+
 
 def dividir_texto(texto):
     paragrafos = [p.strip() for p in texto.splitlines() if p.strip()]
@@ -16,8 +18,25 @@ def dividir_texto(texto):
 
     return trechos
 
+
 def contem(texto, palavras):
-    return any(p in texto for p in palavras)
+    """Procura palavras/frases completas e evita falsos positivos por substring."""
+    negacoes = {"nao", "nunca", "jamais"}
+
+    for palavra in palavras:
+        padrao = r"(?<!\w)" + re.escape(palavra) + r"(?!\w)"
+        for correspondencia in re.finditer(padrao, texto):
+            # Expressões que já incluem "não" são intenções afirmativas,
+            # como "não aguento mais", e não devem ser descartadas.
+            if palavra.startswith("nao "):
+                return True
+
+            anterior = texto[:correspondencia.start()].split()[-3:]
+            if not negacoes.intersection(anterior):
+                return True
+
+    return False
+
 
 def escolher_expressao(frase, historico):
     texto = normalizar(frase)
@@ -42,7 +61,7 @@ def escolher_expressao(frase, historico):
     seriedade = [
         "cuidado", "perigo", "importante", "atencao",
         "precisamos conversar", "problema", "risco",
-        "infelizmente", "perdemos", "perigo"
+        "infelizmente", "perdemos"
     ]
 
     satisfacao = [
@@ -83,6 +102,7 @@ def escolher_expressao(frase, historico):
         return "serio_boca_reta"
 
     return "sorriso_fechado"
+
 
 def interpretar_roteiro(caminho):
     with open(caminho, encoding="utf-8") as arquivo:

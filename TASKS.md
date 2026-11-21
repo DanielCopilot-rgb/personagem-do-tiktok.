@@ -2,10 +2,10 @@
 
 ## Prioridade 1 — Preparar a base
 
-- [ ] Revisar a estrutura atual do repositório.
-- [ ] Confirmar dependências e instruções de instalação.
-- [ ] Criar testes automatizados básicos.
-- [ ] Configurar verificação automática com GitHub Actions.
+- [x] Revisar a estrutura atual do repositório.
+- [x] Confirmar dependências e instruções de instalação.
+- [x] Criar testes automatizados básicos.
+- [x] Configurar verificação automática com GitHub Actions.
 
 ## Prioridade 2 — Criar o ciclo do agente
 

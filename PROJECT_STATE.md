@@ -12,6 +12,9 @@ a partir de histórias escritas pelo usuário.
 - `gerador/gemini.py`: utiliza a API Gemini para analisar histórias e produzir cenas em JSON.
 - `gerador/story_maker.py`: permite criar e administrar histórias pelo terminal.
 - `gerador/historias/`: histórias e análises em JSON.
+- `tests/`: testes automatizados do interpretador.
+- `.github/workflows/tests.yml`: verificação automática no GitHub Actions.
+- `requirements.txt`: dependências Python do gerador.
 
 ## Funcionalidades existentes
 
@@ -22,20 +25,22 @@ a partir de histórias escritas pelo usuário.
 - Interpretação de roteiros TXT.
 - Leitura de cenas em JSON.
 - Análise de histórias pela API Gemini.
+- Testes automatizados do interpretador.
 
 ## Ambiente conhecido
 
 - Desenvolvimento inicial em Android.
-- Termux e Python.
+- Termux e Python 3.13.
 - FFmpeg, Pillow e NumPy utilizados pelo gerador.
 - Repositório GitHub como histórico oficial do código.
 
 ## Limitações conhecidas
 
-- Ainda não existe uma suíte de testes automatizados.
+- Os testes automatizados ainda cobrem principalmente o interpretador; o renderizador de vídeo não possui testes de integração.
+- A qualidade visual e a sincronização dos vídeos precisam de avaliação prática.
 - O Gemini atual analisa histórias, mas não administra o desenvolvimento do software.
 - Ainda não existe um agente autônomo capaz de planejar, editar, testar e revisar o projeto.
-- A qualidade visual e a sincronização dos vídeos precisam de avaliação prática.
+- A fonte Roboto declarada no renderizador não está integrada; atualmente é usada a fonte padrão do Pillow.
 
 ## Governança
 
@@ -48,6 +53,9 @@ a partir de histórias escritas pelo usuário.
 ## Estado atual do desenvolvimento
 
 Estamos preparando a infraestrutura para um agente de engenharia de software.
-A branch atual é `setup/agent-foundation`.
+A branch de trabalho é `setup/agent-foundation`.
+
+A suíte atual contém 12 testes do interpretador.
+O GitHub Actions foi configurado para compilar os arquivos Python e executar os testes em pushes e pull requests.
 
 Ainda não há agente autônomo implementado.
