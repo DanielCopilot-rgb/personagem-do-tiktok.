@@ -47,6 +47,7 @@ A aprovação para uma tarefa não é autorização permanente para tarefas futu
 ## GitHub Actions
 
 - Workflows devem declarar permissões mínimas (`contents: read` quando só testam código).
+- A CI inclui varredura de histórico com Gitleaks e análise Python com CodeQL; resultados só estarão ativos no GitHub depois que o workflow for publicado e executado.
 - Actions de terceiros devem ser fixadas por SHA completo e acompanhadas de comentário com a versão legível.
 - Não usar `pull_request_target` para executar código de pull requests não confiáveis.
 - Não disponibilizar secrets nos jobs de teste; não persistir credenciais de checkout quando não forem necessárias.
@@ -62,4 +63,4 @@ A aprovação para uma tarefa não é autorização permanente para tarefas futu
 
 ## Limitações atuais
 
-Este documento define controles pretendidos; não significa que todos estejam ativos no GitHub. Proteção de branch/rulesets, secret scanning, push protection, CodeQL e regras de aprovação precisam ser conferidos e habilitados nas configurações do repositório, conforme disponibilidade do plano. A pasta autorizada pelo Desktop Commander limita operações de arquivo da ferramenta, mas não deve ser tratada como sandbox completa para comandos de terminal.
+Este documento define controles pretendidos; não significa que todos estejam ativos no GitHub. Proteção de branch/rulesets, secret scanning, push protection e regras de aprovação precisam ser conferidos e habilitados nas configurações do repositório, conforme disponibilidade do plano. CodeQL e Gitleaks estão definidos no workflow local, mas ainda não foram executados no GitHub. A pasta autorizada pelo Desktop Commander limita operações de arquivo da ferramenta, mas não deve ser tratada como sandbox completa para comandos de terminal.

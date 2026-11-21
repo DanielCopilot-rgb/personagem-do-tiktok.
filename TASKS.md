@@ -31,7 +31,8 @@
 - [x] Manter o desenvolvimento na branch `setup/agent-foundation`, sem alterações diretas em `main`.
 - [ ] Configurar ruleset/branch protection em `main` (aprovação humana necessária).
 - [ ] Verificar e habilitar secret scanning e push protection, conforme disponibilidade do repositório/plano.
-- [ ] Avaliar Gitleaks e CodeQL e integrar verificações de segurança à CI.
+- [x] Integrar Gitleaks (histórico completo) e CodeQL (Python) à CI; execução remota depende da publicação do workflow.
+- [ ] Verificar os resultados das primeiras execuções de Gitleaks e CodeQL no GitHub.
 - [ ] Criar sandbox de execução e controlador de permissões independente do agente.
 - [ ] Definir procedimento de aprovação para publicação remota e merge.
 

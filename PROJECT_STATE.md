@@ -15,6 +15,7 @@ a partir de histórias escritas pelo usuário.
 - `tests/`: 23 testes automatizados do interpretador, Story Maker e integração/validação Gemini.
 - `.github/workflows/tests.yml`: CI com permissões mínimas, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução.
 - `.github/dependabot.yml`: atualizações semanais de dependências Python e GitHub Actions.
+- `.github/workflows/security.yml`: varredura Gitleaks do histórico e análise CodeQL para Python.
 - `SECURITY.md`: modelo de ameaça, limites de autonomia, regras de credenciais e processo de revisão.
 - `requirements.txt`: dependências Python do gerador.
 
@@ -58,7 +59,7 @@ Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
 A suíte atual contém 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini. Os testes, a compilação e `git diff --check` passaram localmente.
-O GitHub Actions foi endurecido localmente para usar permissões `contents: read`, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução. Dependabot foi configurado para atualizações semanais.
+O GitHub Actions foi endurecido localmente para usar permissões `contents: read`, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução. Dependabot foi configurado para atualizações semanais. Um workflow separado de segurança foi preparado com Gitleaks e CodeQL, aguardando publicação e primeira execução.
 
 A branch local `setup/agent-foundation` está cinco commits à frente de `origin/setup/agent-foundation`; o commit mais recente é `24f7505`. As alterações ainda não foram publicadas no GitHub.
 
