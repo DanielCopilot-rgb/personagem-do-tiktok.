@@ -1,0 +1,28 @@
+{
+  "cenas": [
+    {
+      "texto": "# ola pessoal 1",
+      "emocao": "amigável",
+      "contexto": "Iniciando a conversa com uma saudação ao público.",
+      "expressao": "sorriso_fechado"
+    },
+    {
+      "texto": "Estava com o grigo dando uma volta só que quais acabeimos chegando na Lua,",
+      "emocao": "entusiasmo",
+      "contexto": "Contando sobre a aventura e a altura exagerada que alcançou com o grifo.",
+      "expressao": "fala_boca_aberta"
+    },
+    {
+      "texto": "meu maior medo era cair do grifo antes de chegar no chao.",
+      "emocao": "apreensão",
+      "contexto": "Relatando o receio e a tensão de despencar lá do alto.",
+      "expressao": "serio_boca_reta"
+    },
+    {
+      "texto": "Ele está meio selvagem ainda ele é meio ndomável mesmo.",
+      "emocao": "resignação",
+      "contexto": "Explicando em tom reflexivo o temperamento difícil do animal.",
+      "expressao": "fala_olhos_fechados"
+    }
+  ]
+}

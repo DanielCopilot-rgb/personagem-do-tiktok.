@@ -1,0 +1,15 @@
+# Arquivos temporários do Python
+__pycache__/
+*.py[cod]
+
+# Vídeos e legendas gerados
+videos_teste/
+*.mp4
+*.srt
+
+# Credenciais e configurações locais
+.env
+.env.*
+!.env.example
+*_env
+secrets/

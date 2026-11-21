@@ -1,0 +1,27 @@
+PERSONAGEM DO TIKTOK
+====================
+
+expressoes/      8 PNGs transparentes do personagem (uma por expressão)
+gerador/         fantoche.py (gera o vídeo) + roteiro_demo.txt (exemplo)
+videos_teste/    demo.mp4 (vídeo de teste) + demo.srt (legenda para o CapCut)
+
+Como gerar um vídeo:
+  cd gerador
+  python3 fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4
+  (com voz gravada: adicione --audio voz.wav)
+
+Formato do roteiro: uma fala por linha, "expressao | texto".
+Expressões: riso_boca_aberta, sorriso_fechado, fala_boca_aberta, serio_boca_reta,
+feliz_olhos_fechados, satisfeito_olhos_fechados, cansado_olhos_fechados, fala_olhos_fechados
+
+
+ANDROID (Termux):
+1. Instale Termux por uma fonte oficial (F-Droid ou GitHub do Termux).
+2. No Termux execute: termux-setup-storage
+3. Execute: pkg update && pkg upgrade
+4. Execute: pkg install python ffmpeg
+5. Execute: pip install pillow numpy
+6. Coloque esta pasta em Download e execute:
+   cd ~/storage/downloads/'personagem do TikTok'/gerador
+   python fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4
+O código desta versão já aponta para ../expressoes e usa a fonte Roboto do Android.

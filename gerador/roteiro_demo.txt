@@ -1,0 +1,5 @@
+# expressao | fala
+sorriso_fechado | Oi! Eu sou o fantoche.
+riso_boca_aberta | Hoje a gente vai testar um vídeo com voz.
+serio_boca_reta | Mas primeiro preciso de um roteiro seu.
+feliz_olhos_fechados | Bom vídeo de teste!
