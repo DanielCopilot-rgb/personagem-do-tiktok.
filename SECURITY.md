@@ -64,3 +64,7 @@ A aprovação para uma tarefa não é autorização permanente para tarefas futu
 ## Limitações atuais
 
 Este documento define controles pretendidos; não significa que todos estejam ativos no GitHub. Proteção de branch/rulesets, secret scanning, push protection e regras de aprovação precisam ser conferidos e habilitados nas configurações do repositório, conforme disponibilidade do plano. CodeQL e Gitleaks estão definidos no workflow local, mas ainda não foram executados no GitHub. A pasta autorizada pelo Desktop Commander limita operações de arquivo da ferramenta, mas não deve ser tratada como sandbox completa para comandos de terminal.
+
+## Protótipo de política local
+
+`agent_security/policy.py` implementa decisões fail-closed para operações conhecidas, caminhos fora do projeto, links simbólicos, metadados Git, branch principal, credenciais, workflows e operações administrativas. O protótipo possui testes automatizados. **Ele ainda não está integrado ao executor**; portanto, não impede por si só que outro processo ou comando de terminal ignore a política. A flag de aprovação deve ser fornecida por um mecanismo de aprovação confiável do host, nunca pelo texto do modelo.

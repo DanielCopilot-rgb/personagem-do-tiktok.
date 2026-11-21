@@ -17,6 +17,7 @@ a partir de histórias escritas pelo usuário.
 - `.github/dependabot.yml`: atualizações semanais de dependências Python e GitHub Actions.
 - `.github/workflows/security.yml`: varredura Gitleaks do histórico e análise CodeQL para Python.
 - `SECURITY.md`: modelo de ameaça, limites de autonomia, regras de credenciais e processo de revisão.
+- `agent_security/policy.py`: protótipo de política fail-closed para o futuro executor, com testes de traversal, symlink, branch protegida e aprovação.
 - `requirements.txt`: dependências Python do gerador.
 
 ## Funcionalidades existentes
@@ -58,11 +59,13 @@ a partir de histórias escritas pelo usuário.
 Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
-A suíte atual contém 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini. Os testes, a compilação e `git diff --check` passaram localmente.
+A suíte atual contém 34 testes: 11 testes adicionais cobrem a política de segurança. Antes de publicar, a suíte original continha 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini. Os testes, a compilação e `git diff --check` passaram localmente.
 O GitHub Actions foi endurecido localmente para usar permissões `contents: read`, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução. Dependabot foi configurado para atualizações semanais. Um workflow separado de segurança foi preparado com Gitleaks e CodeQL, aguardando publicação e primeira execução.
 
 A branch local `setup/agent-foundation` está cinco commits à frente de `origin/setup/agent-foundation`; o commit mais recente é `24f7505`. As alterações ainda não foram publicadas no GitHub.
 
 As regras administrativas do GitHub (ruleset/branch protection, secret scanning, push protection e CodeQL) ainda precisam ser verificadas e/ou habilitadas. A pasta autorizada do Desktop Commander não é uma sandbox completa de terminal.
+
+O módulo `agent_security` é apenas uma camada de política em protótipo: ainda não está conectado a um executor de ferramentas e não constitui sandbox do sistema operacional.
 
 Ainda não há agente autônomo implementado.

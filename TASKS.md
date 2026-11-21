@@ -33,7 +33,9 @@
 - [ ] Verificar e habilitar secret scanning e push protection, conforme disponibilidade do repositório/plano.
 - [x] Integrar Gitleaks (histórico completo) e CodeQL (Python) à CI; execução remota depende da publicação do workflow.
 - [ ] Verificar os resultados das primeiras execuções de Gitleaks e CodeQL no GitHub.
-- [ ] Criar sandbox de execução e controlador de permissões independente do agente.
+- [x] Criar protótipo inicial fail-closed de política independente em `agent_security/policy.py` (11 testes).
+- [ ] Integrar o controlador ao executor real de ferramentas; até lá, o módulo não é uma barreira de segurança efetiva.
+- [ ] Criar sandbox de execução para código gerado e ferramentas; CI temporária não substitui isolamento do agente local.
 - [ ] Definir procedimento de aprovação para publicação remota e merge.
 
 ## Fora do escopo inicial
