@@ -9,7 +9,7 @@ a partir de histórias escritas pelo usuário.
 - `expressoes/`: imagens PNG das expressões do personagem.
 - `gerador/fantoche.py`: renderiza vídeos verticais e legendas SRT.
 - `gerador/interpretador.py`: interpreta roteiros e associa expressões.
-- `gerador/gemini.py`: utiliza a API Gemini para analisar histórias e produzir cenas em JSON.
+- `gerador/gemini.py`: utiliza a API Gemini para analisar histórias e produzir cenas em JSON; lê a chave do ambiente ou de `~/.gemini_env`.
 - `gerador/story_maker.py`: permite criar e administrar histórias pelo terminal.
 - `gerador/historias/`: histórias e análises em JSON.
 - `tests/`: testes automatizados do interpretador.
@@ -55,7 +55,7 @@ a partir de histórias escritas pelo usuário.
 Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
-A suíte atual contém 15 testes: 12 do interpretador e 3 do fluxo de escrita do Story Maker.
+A suíte atual contém 19 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 4 da leitura segura da chave Gemini.
 O GitHub Actions foi configurado para compilar os arquivos Python e executar os testes em pushes e pull requests.
 
 Ainda não há agente autônomo implementado.

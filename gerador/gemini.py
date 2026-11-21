@@ -2,6 +2,7 @@ import os
 import json
 import urllib.request
 import urllib.error
+from pathlib import Path
 
 MODELO = "gemini-3.8-flash"
 
@@ -16,11 +17,41 @@ EXPRESSOES = [
     "cansado_olhos_fechados"
 ]
 
-def analisar_historia(caminho):
+
+def obter_chave_api(caminho=None):
+    """Obtém a chave do ambiente ou, como fallback, de ~/.gemini_env."""
     chave = os.getenv("GEMINI_API_KEY")
+    if chave and chave.strip():
+        return chave.strip()
+
+    arquivo = Path(caminho) if caminho else Path.home() / ".gemini_env"
+    try:
+        linhas = arquivo.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+
+    for linha in linhas:
+        linha = linha.strip()
+        if not linha or linha.startswith("#"):
+            continue
+        if linha.startswith("export "):
+            linha = linha[len("export "):].strip()
+
+        nome, separador, valor = linha.partition("=")
+        if separador and nome.strip() == "GEMINI_API_KEY":
+            valor = valor.strip()
+            if len(valor) >= 2 and valor[0] == valor[-1] and valor[0] in "\"'":
+                valor = valor[1:-1]
+            return valor or None
+
+    return None
+
+
+def analisar_historia(caminho):
+    chave = obter_chave_api()
 
     if not chave:
-        raise RuntimeError("GEMINI_API_KEY não configurada.")
+        raise RuntimeError("GEMINI_API_KEY não configurada no ambiente nem em ~/.gemini_env.")
 
     with open(caminho, encoding="utf-8") as arquivo:
         historia = arquivo.read().strip()

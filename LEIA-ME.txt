@@ -71,6 +71,15 @@ ANDROID (TERMUX)
 6. Entre na pasta gerador e execute o comando de geração acima.
 
 
+ANALISAR UMA HISTORIA COM GEMINI
+--------------------------------
+O script lê GEMINI_API_KEY do ambiente ou, como alternativa, de ~/.gemini_env.
+Execute:
+  python gerador/gemini.py gerador/historias/ola_pessoal_1.txt
+
+Mantenha a chave fora do repositório. Não compartilhe o conteúdo de ~/.gemini_env.
+
+
 TESTES
 ------
 Na raiz do repositório:
