@@ -47,6 +47,29 @@ def obter_chave_api(caminho=None):
     return None
 
 
+def validar_analise(analise):
+    """Valida o formato mínimo consumido pelo gerador de vídeos."""
+    if not isinstance(analise, dict):
+        raise RuntimeError("A resposta do Gemini precisa ser um objeto JSON.")
+
+    cenas = analise.get("cenas")
+    if not isinstance(cenas, list) or not cenas:
+        raise RuntimeError("A resposta não contém uma lista de cenas válida.")
+
+    for numero, cena in enumerate(cenas, start=1):
+        if not isinstance(cena, dict):
+            raise RuntimeError(f"A cena {numero} não é um objeto JSON.")
+
+        fala = cena.get("texto")
+        if not isinstance(fala, str) or not fala.strip():
+            raise RuntimeError(f"A cena {numero} não contém texto válido.")
+
+        if cena.get("expressao") not in EXPRESSOES:
+            cena["expressao"] = "sorriso_fechado"
+
+    return analise
+
+
 def analisar_historia(caminho):
     chave = obter_chave_api()
 
@@ -140,14 +163,7 @@ HISTÓRIA:
             f"Resposta inesperada do Gemini: {erro}"
         ) from erro
 
-    if not isinstance(analise.get("cenas"), list):
-        raise RuntimeError("A resposta não contém uma lista de cenas válida.")
-
-    for cena in analise["cenas"]:
-        if cena.get("expressao") not in EXPRESSOES:
-            cena["expressao"] = "sorriso_fechado"
-
-    return analise
+    return validar_analise(analise)
 
 
 if __name__ == "__main__":

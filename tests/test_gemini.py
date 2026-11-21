@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from gerador.gemini import obter_chave_api
+from gerador.gemini import obter_chave_api, validar_analise
 
 
 class TestChaveGemini(unittest.TestCase):
@@ -38,6 +38,28 @@ class TestChaveGemini(unittest.TestCase):
             arquivo = Path(pasta) / 'inexistente.env'
             with patch.dict(os.environ, {}, clear=True):
                 self.assertIsNone(obter_chave_api(arquivo))
+
+
+class TestValidacaoGemini(unittest.TestCase):
+
+    def test_aceita_cena_valida(self):
+        analise = {
+            'cenas': [{'texto': 'Olá!', 'expressao': 'sorriso_fechado'}]
+        }
+        self.assertEqual(validar_analise(analise), analise)
+
+    def test_substitui_expressao_desconhecida(self):
+        analise = {'cenas': [{'texto': 'Olá!', 'expressao': 'expressao_inexistente'}]}
+        resultado = validar_analise(analise)
+        self.assertEqual(resultado['cenas'][0]['expressao'], 'sorriso_fechado')
+
+    def test_rejeita_resposta_que_nao_e_objeto(self):
+        with self.assertRaisesRegex(RuntimeError, 'objeto JSON'):
+            validar_analise([])
+
+    def test_rejeita_cena_sem_texto(self):
+        with self.assertRaisesRegex(RuntimeError, 'texto válido'):
+            validar_analise({'cenas': [{'expressao': 'sorriso_fechado'}]})
 
 
 if __name__ == '__main__':

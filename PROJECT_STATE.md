@@ -55,7 +55,7 @@ a partir de histórias escritas pelo usuário.
 Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
-A suíte atual contém 19 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 4 da leitura segura da chave Gemini.
+A suíte atual contém 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini.
 O GitHub Actions foi configurado para compilar os arquivos Python e executar os testes em pushes e pull requests.
 
 Ainda não há agente autônomo implementado.
