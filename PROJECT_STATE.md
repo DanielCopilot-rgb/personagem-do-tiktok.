@@ -12,8 +12,10 @@ a partir de histórias escritas pelo usuário.
 - `gerador/gemini.py`: utiliza a API Gemini para analisar histórias e produzir cenas em JSON; lê a chave do ambiente ou de `~/.gemini_env`.
 - `gerador/story_maker.py`: permite criar e administrar histórias pelo terminal.
 - `gerador/historias/`: histórias e análises em JSON.
-- `tests/`: testes automatizados do interpretador.
-- `.github/workflows/tests.yml`: verificação automática no GitHub Actions.
+- `tests/`: 23 testes automatizados do interpretador, Story Maker e integração/validação Gemini.
+- `.github/workflows/tests.yml`: CI com permissões mínimas, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução.
+- `.github/dependabot.yml`: atualizações semanais de dependências Python e GitHub Actions.
+- `SECURITY.md`: modelo de ameaça, limites de autonomia, regras de credenciais e processo de revisão.
 - `requirements.txt`: dependências Python do gerador.
 
 ## Funcionalidades existentes
@@ -55,7 +57,11 @@ a partir de histórias escritas pelo usuário.
 Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
-A suíte atual contém 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini.
-O GitHub Actions foi configurado para compilar os arquivos Python e executar os testes em pushes e pull requests.
+A suíte atual contém 23 testes: 12 do interpretador, 3 do fluxo de escrita do Story Maker e 8 da chave e validação das respostas Gemini. Os testes, a compilação e `git diff --check` passaram localmente.
+O GitHub Actions foi endurecido localmente para usar permissões `contents: read`, Actions fixadas por SHA, checkout sem credenciais persistentes e limites de execução. Dependabot foi configurado para atualizações semanais.
+
+A branch local `setup/agent-foundation` está cinco commits à frente de `origin/setup/agent-foundation`; o commit mais recente é `24f7505`. As alterações ainda não foram publicadas no GitHub.
+
+As regras administrativas do GitHub (ruleset/branch protection, secret scanning, push protection e CodeQL) ainda precisam ser verificadas e/ou habilitadas. A pasta autorizada do Desktop Commander não é uma sandbox completa de terminal.
 
 Ainda não há agente autônomo implementado.

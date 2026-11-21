@@ -24,10 +24,16 @@
 
 ## Prioridade 4 — Segurança e autonomia
 
-- [ ] Proteger credenciais com GitHub Secrets.
-- [ ] Manter alterações em branches separadas.
-- [ ] Exigir aprovação antes de incorporar alterações à main.
-- [ ] Registrar decisões e resultados de cada execução.
+- [x] Definir modelo inicial de ameaça e níveis de autonomia em `SECURITY.md`.
+- [x] Manter credenciais locais fora do repositório e proteger `~/.gemini_env` com permissão `600`.
+- [x] Restringir o workflow de CI a `contents: read`, fixar Actions por SHA e desativar credenciais persistentes no checkout.
+- [x] Configurar Dependabot para dependências Python e GitHub Actions.
+- [x] Manter o desenvolvimento na branch `setup/agent-foundation`, sem alterações diretas em `main`.
+- [ ] Configurar ruleset/branch protection em `main` (aprovação humana necessária).
+- [ ] Verificar e habilitar secret scanning e push protection, conforme disponibilidade do repositório/plano.
+- [ ] Avaliar Gitleaks e CodeQL e integrar verificações de segurança à CI.
+- [ ] Criar sandbox de execução e controlador de permissões independente do agente.
+- [ ] Definir procedimento de aprovação para publicação remota e merge.
 
 ## Fora do escopo inicial
 

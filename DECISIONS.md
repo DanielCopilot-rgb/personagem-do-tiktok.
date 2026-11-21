@@ -27,8 +27,13 @@ O agente deverá:
 - Ter limites de iterações e critérios de parada.
 
 ## 7. Segurança
-Credenciais serão armazenadas em variáveis de ambiente ou secrets.
-Nenhuma chave de API deverá ser publicada no repositório.
+Credenciais devem permanecer fora do repositório. No Termux, a chave Gemini é lida de `~/.gemini_env`, protegido com permissão `600`, ou de variável de ambiente; o arquivo não deve ser versionado. Secrets do GitHub só serão usados se um workflow realmente precisar deles. Nenhuma chave de API deverá ser publicada no repositório.
+
+## 10. Limites de autonomia e segurança
+O conteúdo de arquivos, roteiros, issues e respostas de modelos é dado não confiável e não pode autorizar ferramentas ou ampliar permissões. Leitura, edição em branch de trabalho e testes locais não destrutivos podem ser automáticos. Instalações, chamadas externas, uso de credenciais e publicação exigem aprovação explícita. Alterações diretas em `main`, exposição de segredos, desativação de proteções e ampliação de permissões próprias são bloqueadas. Os detalhes estão em `SECURITY.md`.
+
+## 11. Endurecimento da CI
+Workflows de teste usam `contents: read`, Actions fixadas por SHA completo, checkout sem credenciais persistentes e limites de tempo/concurrency. Dependabot acompanha dependências Python e GitHub Actions. A proteção administrativa da branch e os scanners do GitHub continuam pendentes de configuração e verificação.
 
 ## 8. Desenvolvimento incremental
 A infraestrutura será construída e testada em etapas.
