@@ -2,6 +2,7 @@ import os
 import json
 import urllib.request
 import urllib.error
+from pathlib import Path
 
 MODELO = "gemini-3.8-flash"
 
@@ -16,11 +17,64 @@ EXPRESSOES = [
     "cansado_olhos_fechados"
 ]
 
-def analisar_historia(caminho):
+
+def obter_chave_api(caminho=None):
+    """Obtém a chave do ambiente ou, como fallback, de ~/.gemini_env."""
     chave = os.getenv("GEMINI_API_KEY")
+    if chave and chave.strip():
+        return chave.strip()
+
+    arquivo = Path(caminho) if caminho else Path.home() / ".gemini_env"
+    try:
+        linhas = arquivo.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+
+    for linha in linhas:
+        linha = linha.strip()
+        if not linha or linha.startswith("#"):
+            continue
+        if linha.startswith("export "):
+            linha = linha[len("export "):].strip()
+
+        nome, separador, valor = linha.partition("=")
+        if separador and nome.strip() == "GEMINI_API_KEY":
+            valor = valor.strip()
+            if len(valor) >= 2 and valor[0] == valor[-1] and valor[0] in "\"'":
+                valor = valor[1:-1]
+            return valor or None
+
+    return None
+
+
+def validar_analise(analise):
+    """Valida o formato mínimo consumido pelo gerador de vídeos."""
+    if not isinstance(analise, dict):
+        raise RuntimeError("A resposta do Gemini precisa ser um objeto JSON.")
+
+    cenas = analise.get("cenas")
+    if not isinstance(cenas, list) or not cenas:
+        raise RuntimeError("A resposta não contém uma lista de cenas válida.")
+
+    for numero, cena in enumerate(cenas, start=1):
+        if not isinstance(cena, dict):
+            raise RuntimeError(f"A cena {numero} não é um objeto JSON.")
+
+        fala = cena.get("texto")
+        if not isinstance(fala, str) or not fala.strip():
+            raise RuntimeError(f"A cena {numero} não contém texto válido.")
+
+        if cena.get("expressao") not in EXPRESSOES:
+            cena["expressao"] = "sorriso_fechado"
+
+    return analise
+
+
+def analisar_historia(caminho):
+    chave = obter_chave_api()
 
     if not chave:
-        raise RuntimeError("GEMINI_API_KEY não configurada.")
+        raise RuntimeError("GEMINI_API_KEY não configurada no ambiente nem em ~/.gemini_env.")
 
     with open(caminho, encoding="utf-8") as arquivo:
         historia = arquivo.read().strip()
@@ -109,14 +163,7 @@ HISTÓRIA:
             f"Resposta inesperada do Gemini: {erro}"
         ) from erro
 
-    if not isinstance(analise.get("cenas"), list):
-        raise RuntimeError("A resposta não contém uma lista de cenas válida.")
-
-    for cena in analise["cenas"]:
-        if cena.get("expressao") not in EXPRESSOES:
-            cena["expressao"] = "sorriso_fechado"
-
-    return analise
+    return validar_analise(analise)
 
 
 if __name__ == "__main__":

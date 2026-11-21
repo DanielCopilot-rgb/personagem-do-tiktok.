@@ -71,8 +71,8 @@ def escrever(conteudo_anterior=""):
     print("ESCREVA SUA HISTORIA")
     print("-" * 42)
     print("Escreva livremente, usando varias linhas.")
-    print("Digite :salvar em uma linha para terminar.")
-    print("Digite :cancelar para desistir.\n")
+    print("Digite salvar ou :salvar para terminar.")
+    print("Digite cancelar ou :cancelar para desistir.\n")
 
     if conteudo_anterior:
         print("Conteudo anterior:")
@@ -88,10 +88,12 @@ def escrever(conteudo_anterior=""):
             print("\nEscrita interrompida.")
             return None
 
-        if linha.strip() == ":salvar":
+        comando = linha.strip().casefold()
+
+        if comando in {"salvar", ":salvar"}:
             return "\n".join(linhas).strip()
 
-        if linha.strip() == ":cancelar":
+        if comando in {"cancelar", ":cancelar"}:
             return None
 
         linhas.append(linha)

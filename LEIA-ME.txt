@@ -1,27 +1,89 @@
 PERSONAGEM DO TIKTOK
 ====================
 
-expressoes/      8 PNGs transparentes do personagem (uma por expressão)
-gerador/         fantoche.py (gera o vídeo) + roteiro_demo.txt (exemplo)
-videos_teste/    demo.mp4 (vídeo de teste) + demo.srt (legenda para o CapCut)
+ESTRUTURA
+---------
+expressoes/      PNGs transparentes do personagem
+gerador/         gerador de vídeos, interpretador e ferramentas de roteiro
+tests/           testes automatizados
+videos_teste/    saídas locais de teste (não versionadas no Git)
 
-Como gerar um vídeo:
+
+DEPENDÊNCIAS
+------------
+Python 3.10 ou superior
+Pillow
+NumPy
+FFmpeg (comando ffmpeg disponível no PATH)
+
+Instale as dependências Python com:
+  python -m pip install -r requirements.txt
+
+
+COMO GERAR UM VÍDEO
+-------------------
+A partir da raiz do repositório:
   cd gerador
-  python3 fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4
-  (com voz gravada: adicione --audio voz.wav)
+  python fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4
 
-Formato do roteiro: uma fala por linha, "expressao | texto".
-Expressões: riso_boca_aberta, sorriso_fechado, fala_boca_aberta, serio_boca_reta,
-feliz_olhos_fechados, satisfeito_olhos_fechados, cansado_olhos_fechados, fala_olhos_fechados
+Com voz gravada:
+  python fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4 --audio voz.wav
+
+O diretório de saída precisa existir antes da execução.
 
 
-ANDROID (Termux):
+CRIAR E EDITAR HISTORIAS
+-----------------------
+Na raiz do repositório, execute:
+  python gerador/story_maker.py
+
+Durante a escrita, digite salvar (ou :salvar) em uma linha para concluir.
+Digite cancelar (ou :cancelar) em uma linha para abandonar sem salvar.
+
+
+FORMATO DE ROTEIRO
+------------------
+Uma fala por linha, no formato:
+  expressao | texto
+
+Expressões reconhecidas:
+  riso_boca_aberta
+  sorriso_fechado
+  fala_boca_aberta
+  serio_boca_reta
+  feliz_olhos_fechados
+  satisfeito_olhos_fechados
+  cansado_olhos_fechados
+  fala_olhos_fechados
+
+Roteiros TXT em texto livre também são interpretados automaticamente.
+Roteiros antigos no formato "expressao | fala" continuam aceitos.
+A fonte atual das legendas é a fonte padrão do Pillow; a Roboto ainda não está integrada.
+
+
+ANDROID (TERMUX)
+----------------
 1. Instale Termux por uma fonte oficial (F-Droid ou GitHub do Termux).
-2. No Termux execute: termux-setup-storage
-3. Execute: pkg update && pkg upgrade
+2. Execute: termux-setup-storage
+3. Execute: pkg update
 4. Execute: pkg install python ffmpeg
-5. Execute: pip install pillow numpy
-6. Coloque esta pasta em Download e execute:
-   cd ~/storage/downloads/'personagem do TikTok'/gerador
-   python fantoche.py roteiro_demo.txt ../videos_teste/novo.mp4
-O código desta versão já aponta para ../expressoes e usa a fonte Roboto do Android.
+5. Instale as dependências: python -m pip install -r requirements.txt
+6. Entre na pasta gerador e execute o comando de geração acima.
+
+
+ANALISAR UMA HISTORIA COM GEMINI
+--------------------------------
+O script lê GEMINI_API_KEY do ambiente ou, como alternativa, de ~/.gemini_env.
+Execute:
+  python gerador/gemini.py gerador/historias/ola_pessoal_1.txt
+
+Mantenha a chave fora do repositório. Não compartilhe o conteúdo de ~/.gemini_env.
+
+
+TESTES
+------
+Na raiz do repositório:
+  python -m unittest discover -s tests -v
+  python -m compileall -q gerador tests
+
+Os testes também são executados automaticamente pelo GitHub Actions.
