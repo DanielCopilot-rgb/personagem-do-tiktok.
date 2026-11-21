@@ -32,6 +32,15 @@ Com voz gravada:
 O diretório de saída precisa existir antes da execução.
 
 
+CRIAR E EDITAR HISTORIAS
+-----------------------
+Na raiz do repositório, execute:
+  python gerador/story_maker.py
+
+Durante a escrita, digite salvar (ou :salvar) em uma linha para concluir.
+Digite cancelar (ou :cancelar) em uma linha para abandonar sem salvar.
+
+
 FORMATO DE ROTEIRO
 ------------------
 Uma fala por linha, no formato:

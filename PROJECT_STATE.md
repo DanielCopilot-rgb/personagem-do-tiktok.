@@ -55,7 +55,7 @@ a partir de histórias escritas pelo usuário.
 Estamos preparando a infraestrutura para um agente de engenharia de software.
 A branch de trabalho é `setup/agent-foundation`.
 
-A suíte atual contém 12 testes do interpretador.
+A suíte atual contém 15 testes: 12 do interpretador e 3 do fluxo de escrita do Story Maker.
 O GitHub Actions foi configurado para compilar os arquivos Python e executar os testes em pushes e pull requests.
 
 Ainda não há agente autônomo implementado.
